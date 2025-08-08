@@ -55,5 +55,42 @@
             }
         });
     </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const iframe = document.getElementById('myIframe');
+        if (iframe) {
+            iframe.onload = function() {
+                try {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+                    // قائمة بمعرفات وفئات الإعلانات الشائعة التي يجب إخفاؤها
+                    const adSelectors = [
+                        '.ad-class',
+                        '.ad-container',
+                        '#ad-wrapper',
+                        '.popup-ad',
+                        // يمكنك إضافة المزيد من المحددات هنا
+                    ];
+
+                    // دمج المحددات في سلسلة واحدة
+                    const combinedSelector = adSelectors.join(', ');
+
+                    // البحث عن العناصر الإعلانية وإخفاؤها
+                    const adElements = iframeDoc.querySelectorAll(combinedSelector);
+                    adElements.forEach(el => {
+                        el.style.display = 'none';
+                    });
+
+                    // منع النوافذ المنبثقة
+                    if (iframe.contentWindow) {
+                        iframe.contentWindow.open = function() {};
+                    }
+                } catch (e) {
+                    console.error('An error occurred while trying to block ads:', e);
+                }
+            };
+        }
+    });
+</script>
 </body>
 </html>
