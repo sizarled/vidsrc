@@ -1,5 +1,2 @@
-[[redirects]]
-  from = "/proxy-content/*"
-  to = "https://vidsrc.xyz/:splat"
-  status = 200
-  force = true
+[build]
+  functions = "netlify/functions"
